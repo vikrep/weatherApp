@@ -13,59 +13,58 @@ var dateTime;
 function update(weather) {
     icon.src = "imgs/codes/" + weather.code + ".png"
     humidity.innerHTML = weather.humidity;
-    wind.innerHTML=weather.wind
-    description.innerHTML=weather.description
+    wind.innerHTML = weather.wind
+    description.innerHTML = weather.description
     loc.innerHTML = weather.location;
     temp.innerHTML = weather.temp;
-    dateTime.innerHTML=weather.dateTime;
-}
+    dateTime.innerHTML = weather.dateTime;
+};
 
 window.onload = function () {
     temp = document.getElementById("temperature");
     loc = document.getElementById("location");
     icon = document.getElementById("icon");
     humidity = document.getElementById("humidity");
-    wind=document.getElementById("wind")
+    wind = document.getElementById("wind")
     description = document.getElementById("description");
-    dateTime=document.getElementById("dateTime")
-	var name = window.prompt(" Enter the city name: ");
+    dateTime = document.getElementById("dateTime")
+    var name = window.prompt(" Enter the city name: ");
     updateByName(name);
+};
 
-}
-
-function updateByName(name){
+function updateByName(name) {
     var url = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + name +
-	"&APPID=" + APPID;
+        "&APPID=" + APPID;
     sendRequest(url);
-}
+};
 
 
-function sendRequest(url){
+function sendRequest(url) {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var data = JSON.parse(xmlhttp.responseText);
-	    var weather = {};
-	    weather.code = data.weather[0].id;
-        weather.humidity = data.main.humidity;
-        weather.wind= data.wind.speed;
-	    weather.description = data.weather[0].description;
-	    /* NEW */
-	    weather.location = data.name;
-	    /* NEW */
-        weather.temp = K2C(data.main.temp);	
-        weather.dateTime=unixToUtc(data.dt);	
-	    update(weather);
-	}
+            var weather = {};
+            weather.code = data.weather[0].id;
+            weather.humidity = data.main.humidity;
+            weather.wind = data.wind.speed;
+            weather.description = data.weather[0].description;
+            /* NEW */
+            weather.location = data.name;
+            /* NEW */
+            weather.temp = K2C(data.main.temp);
+            weather.dateTime = unixToUtc(data.dt);
+            update(weather);
+        };
     };
 
     xmlhttp.open("GET", url, true);
-    xmlhttp.send();    
-}
+    xmlhttp.send();
+};
 
-function K2C(k){
+function K2C(k) {
     return Math.round(k - 273.15);
-}
-function unixToUtc(t){
-    return new Date(t*1000).toString()
-}
+};
+function unixToUtc(t) {
+    return new Date(t * 1000).toString()
+};
