@@ -18,8 +18,6 @@ function update(weather) {
     loc.innerHTML = weather.location;
     temp.innerHTML = weather.temp;
     dateTime.innerHTML=weather.dateTime;
-
-
 }
 
 window.onload = function () {
@@ -36,7 +34,7 @@ window.onload = function () {
 }
 
 function updateByZip(zip){
-    var url = "http://api.openweathermap.org/data/2.5/weather?" + "zip=" + zip +
+    var url = "https://api.openweathermap.org/data/2.5/weather?" + "zip=" + zip +
 	"&APPID=" + APPID;
     sendRequest(url);
 }
