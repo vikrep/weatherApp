@@ -33,8 +33,9 @@ window.onload = function () {
 };
 
 function updateByName(name) {
-    var url = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + name +
-        "&APPID=" + APPID;
+    var url = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + name + "&units=metric" +
+        "&APPID=" + APPID;         
+        //add &units=metric
     sendRequest(url);
 };
 
@@ -52,7 +53,7 @@ function sendRequest(url) {
             /* NEW */
             weather.location = data.name;
             /* NEW */
-            weather.temp = K2C(data.main.temp);
+            weather.temp = Math.round(data.main.temp);
             weather.dateTime = unixToUtc(data.dt);
             update(weather);
         };
@@ -62,9 +63,9 @@ function sendRequest(url) {
     xmlhttp.send();
 };
 
-function K2C(k) {
-    return Math.round(k - 273.15);
-};
+// function K2C(k) {
+//     return Math.round(k - 273.15);
+// };
 function unixToUtc(t) {
     return new Date(t * 1000).toString()
 };
