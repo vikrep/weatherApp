@@ -28,13 +28,13 @@ window.onload = function () {
     wind=document.getElementById("wind")
     description = document.getElementById("description");
     dateTime=document.getElementById("dateTime")
-	var zip = window.prompt(" What is your zip code?");
-    updateByZip(zip);
+	var name = window.prompt(" Enter the city name: ");
+    updateByName(name);
 
 }
 
-function updateByZip(zip){
-    var url = "https://api.openweathermap.org/data/2.5/weather?" + "zip=" + zip +
+function updateByName(name){
+    var url = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + name +
 	"&APPID=" + APPID;
     sendRequest(url);
 }
